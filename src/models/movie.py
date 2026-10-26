@@ -1,0 +1,17 @@
+from sqlalchemy import Column, Integer, Float, String, CheckConstraint
+from . import Base
+
+
+class Movie(Base):
+    __tablename__ = "movies"
+    __table_args__ = (
+        CheckConstraint("rating >= 0 AND rating <= 10", name="check_movie_rating_range"),
+        CheckConstraint("year >= 1888", name="check_movie_year_1888"),
+    )
+
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String, nullable=False, index=True)
+    genre = Column(String, nullable=False)
+    rating = Column(Float, nullable=False)
+    year = Column(Integer, nullable=False)
+
